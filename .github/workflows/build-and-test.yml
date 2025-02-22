@@ -1,0 +1,29 @@
+name: Build and test .NET project
+
+on:
+  push:
+    branches: [ "main", "develop", "staging" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Perform Unit Tests on the develop branch
+      if: github.ref == 'refs/heads/develop'
+      run: dotnet test Homies.UnitTests\Homies.UnitTests.csproj --no-build --verbosity normal
+    - name: Perform Integration Tests on the staging branch
+      if: github.ref == 'refs/heads/staging'
+      run: dotnet test Homes.IntegrationTests\Homes.IntegrationTests.csproj --no-build --verbosity normal
