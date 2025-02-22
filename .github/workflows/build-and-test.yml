@@ -23,7 +23,7 @@ jobs:
       run: dotnet build --no-restore
     - name: Perform Unit Tests on the develop branch
       if: github.ref == 'refs/heads/develop'
-      run: dotnet test Homies.UnitTests\Homies.UnitTests.csproj --no-build --verbosity normal
+      run: dotnet test SUContent-SEDO-Regular-Exam-2024-10-2\Homies.UnitTests\Homies.UnitTests.csproj --no-build --verbosity normal
     - name: Perform Integration Tests on the staging branch
       if: github.ref == 'refs/heads/staging'
-      run: dotnet test Homes.IntegrationTests\Homes.IntegrationTests.csproj --no-build --verbosity normal
+      run: dotnet test SUContent-SEDO-Regular-Exam-2024-10-2\Homes.IntegrationTests\Homes.IntegrationTests.csproj --no-build --verbosity normal
